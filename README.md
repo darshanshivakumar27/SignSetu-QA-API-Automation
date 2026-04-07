@@ -1,144 +1,131 @@
-# QA Automation Test – SignSetu
+# SignSetu QA API Automation
 
-## 👨‍💻 Candidate
+## Project Overview
 
-Darshan S
+SignSetu QA API Automation is a Python-based automated testing framework built using **Pytest** and **Requests** to validate REST APIs.
+The project demonstrates automated API validation, asynchronous response handling, and bug detection through automated test cases.
 
----
-
-## 📌 Project Overview
-
-This project implements an automated test suite for the SignSetu backend API (Video Caption Processing Pipeline).
-
-The main objectives were to:
-
-- Automate the complete API workflow
-- Handle asynchronous processing effectively
-- Validate responses and data integrity
-- Identify and document real-world bugs
+This framework tests different API endpoints of the SignSetu platform and verifies responses, status codes, and expected outputs.
 
 ---
 
-## ⚙️ Tech Stack
+## Features
+
+- Automated REST API testing
+- Positive and negative test case validation
+- Async API polling verification
+- Bug detection and reporting
+- Screenshot evidence for discovered issues
+
+---
+
+## Technologies Used
 
 - Python
 - Pytest
-- Requests
+- Requests Library
+- REST API Testing
+- Automated QA Testing
 
 ---
 
-## 🔄 Test Workflow Covered
+## Project Structure
 
-1. **Authentication**
-   - POST `/api/auth`
-   - Retrieves session token
+```
+SignSetu-QA-API-Automation
+│
+├── test_api.py
+├── test_bugs.py
+├── utils.py
+├── conftest.py
+├── requirements.txt
+├── screenshots
+│     ├── bug_captions.png
+│     ├── bug_invalid_id.png
+│
+└── README.md
+```
 
-2. **Create Video**
-   - POST `/api/videos`
-   - Creates a new video record
+### File Description
 
-3. **Trigger Caption Processing**
-   - POST `/api/videos/{id}/process-captions`
-   - Starts asynchronous caption generation
+**test_api.py**
+Contains automated API test cases for validating main API flows.
 
-4. **Fetch Captions**
-   - GET `/api/captions?videoId={id}`
-   - Implemented polling to handle async processing
+**test_bugs.py**
+Contains test cases designed to detect bugs and unexpected API behavior.
 
-5. **Cleanup**
-   - DELETE `/api/videos/{id}`
+**utils.py**
+Helper functions used across the test framework.
 
----
+**conftest.py**
+Pytest fixtures and configuration setup.
 
-## 🔁 Async Handling Strategy
-
-Caption generation is asynchronous. To handle this reliably:
-
-- Implemented polling with retry logic
-- Added delays between requests
-- Validated response availability before assertions
-
----
-
-## 🧪 Test Strategy
-
-- End-to-end workflow validation
-- Negative testing (invalid inputs, missing headers)
-- Edge case testing (duplicate requests, invalid IDs)
-- Repeatability testing (multiple test executions)
+**screenshots/**
+Contains screenshot evidence of bugs discovered during testing.
 
 ---
 
-## 🐞 Bugs & Observations
+## Installation
 
-### 1. State Collision in Authentication
+Clone the repository
 
-- Error: `This X-Candidate-ID is already active`
-- Cause: Reuse of the same candidate ID
-- Impact: Breaks test repeatability
-- Suggestion: Allow multiple sessions or reset state
+```
+git clone https://github.com/darshanshivakumar27/SignSetu-QA-API-Automation.git
+```
 
----
+Navigate to project folder
 
-### 2. Inconsistent Status Codes
+```
+cd SignSetu-QA-API-Automation
+```
 
-- Example: Invalid video ID returns `401` instead of `404`
-- Impact: Misleading API behavior
-- Suggestion: Use appropriate HTTP status codes
+Install dependencies
 
----
-
-### 3. Caption Generation Instability
-
-- Issue: Captions are not consistently generated after processing
-- Impact: Flaky asynchronous behavior
-- Suggestion: Improve processing reliability or provide status tracking
-
----
-
-### 4. Duplicate Processing Allowed
-
-- Same video can trigger caption processing multiple times
-- Expected behavior: Prevent duplicate processing requests
-
----
-
-### 5. Missing Header Validation
-
-- API does not strictly validate missing `X-Candidate-ID`
-- Impact: Potential design/security issue
-
----
-
-## 📸 Screenshots
-
-Included:
-
-- Test execution results (pytest output)
-- Failed test cases (bug evidence)
-- Code implementation
-
----
-
-## 🚀 How to Run
-
-```bash
+```
 pip install -r requirements.txt
-pytest -v
 ```
 
 ---
 
-## ✅ Key Highlights
+## Running the Tests
 
-- End-to-end API automation implemented
-- Asynchronous workflow handled using polling
-- Multiple real-world bugs identified
-- Tests designed for reliability and repeatability
+Run all automated API tests using:
+
+```
+pytest -v
+```
+
+This will execute all test cases and display the results in the terminal.
 
 ---
 
-## 🎯 Conclusion
+## Bug Evidence
 
-This test suite not only validates API functionality but also highlights critical issues in system behavior.
-The approach focuses on real-world QA practices including robustness, edge case handling, and bug discovery.
+During automated testing, the following issues were identified:
+
+**Invalid Video ID Bug**
+
+Screenshot available in:
+
+```
+screenshots/bug_invalid_id.png
+```
+
+**Captions API Bug**
+
+Screenshot available in:
+
+```
+screenshots/bug_captions.png
+```
+
+---
+
+## Author
+
+Darshan S
+BE Computer Science & Data Science
+PES College of Engineering, Mandya
+
+GitHub
+https://github.com/darshanshivakumar27
